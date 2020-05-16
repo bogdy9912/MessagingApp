@@ -1,7 +1,9 @@
 package repositories;
 
+import models.Group;
 import models.Message;
 import models.User;
+import models.UserGroup;
 import utils.DbConnection;
 
 import java.sql.PreparedStatement;
@@ -76,6 +78,36 @@ public class UserRepository {
 
     }
 
+    public static List<Group> findGroupsUser(String userId)throws SQLException{
+        List <UserGroup> groupsUser = UserGroupRepository.findAllGroupsByUserId(userId);
+        List<Group> groups = new ArrayList<>();
+        for (UserGroup groupUser : groupsUser) {
+            Group group = GroupRepository.findById(groupUser.getIdGroup());
+            groups.add(group);
+        }
+        return groups;
+    }
+
+    public static User findByUserId(String userId) throws SQLException {
+        Statement statement = DbConnection.getConnection().createStatement();
+        String sql = "SELECT * FROM user WHERE id like '" + userId + "'";
+
+        ResultSet resultSet = statement.executeQuery(sql);
+
+
+        if (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("password")
+            );
+
+            return user;
+        } else
+            return null;
+
+    }
+
 
     public static User userLogin(String userName, String userPassword) throws SQLException {
         Statement statement = DbConnection.getConnection().createStatement();
@@ -108,7 +140,10 @@ public class UserRepository {
             Message message = new Message(
                     resultSet.getString("id"),
                     resultSet.getString("text"),
-                    resultSet.getString("idUser")
+                    resultSet.getString("idUser"),
+                    resultSet.getString("date"),
+                    resultSet.getString("idGroup")
+
             );
             messages.add(message);
 
