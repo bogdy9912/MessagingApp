@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
             } else {
                 request.setAttribute("nume",userName);
                 request.setAttribute("user", UserRepository.findByUserName(userName));
-                response.sendRedirect(request.getContextPath() + "/home_page?userName=" + userName);
+                response.sendRedirect(request.getContextPath() + "/home_page?userName=" + userName + "&groupId=" + 1);
                 //request.getRequestDispatcher("home_page.jsp").forward(request, response);
               //  response.getWriter().println("You did it son of a bitch!");
             }

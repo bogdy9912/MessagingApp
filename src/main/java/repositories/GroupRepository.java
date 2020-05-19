@@ -22,6 +22,8 @@ public class GroupRepository {
         preparedStatement.setString(1, group.getName());
 
         preparedStatement.execute();
+
+
     }
 
     public static List<Group> findByName(String groupName) throws SQLException {
@@ -94,9 +96,21 @@ public class GroupRepository {
 
             }*/
           allMessages.removeIf(message -> !(message.getIdGroup().equals(groupId) ));
-        allMessages.sort(Comparator.comparing(Message::getDate));
+        allMessages.sort(Comparator.comparing(Message::getDate).reversed());
 
         return allMessages;
+    }
+
+
+    public static void addMember(User user, Group group) throws SQLException{
+        String sql = "INSERT INTO `chatapp01`.`user_group` (`idGroup`, `idUser`) VALUES (?, ?);";
+        PreparedStatement preparedStatement = DbConnection.getConnection().prepareStatement(sql);
+        preparedStatement.setString(1, group.getId());
+        preparedStatement.setString(2, user.getId());
+
+
+        preparedStatement.execute();
+
     }
 
 

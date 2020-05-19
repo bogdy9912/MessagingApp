@@ -33,7 +33,22 @@ public class User {
     public String toString() {
         return name + ": " + id + ", " + password;
     }
+/*
+    @Override
+    public boolean equals(Object obj) {
 
+        if (obj == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Complex or not
+          "null instanceof [type]" also returns false */
+   /*     if (!(obj instanceof User)) {
+            return false;
+        }
+        User user = (User) obj;
+        return user.id == id;
+    }*/
 
 
 }

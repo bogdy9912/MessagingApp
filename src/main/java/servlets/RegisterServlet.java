@@ -20,7 +20,7 @@ public class RegisterServlet extends HttpServlet {
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getRequestDispatcher("register.jsp").forward(request, response);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     public void doPost(HttpServletRequest request , HttpServletResponse response) throws IOException, ServletException {

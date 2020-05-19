@@ -59,6 +59,8 @@ public class UserRepository {
     }
 
     public static User findByUserName(String userName) throws SQLException {
+        if (userName == null)
+            return null;
         Statement statement = DbConnection.getConnection().createStatement();
         String sql = "SELECT * FROM user WHERE name like '" + userName + "'";
 
@@ -89,6 +91,7 @@ public class UserRepository {
     }
 
     public static User findByUserId(String userId) throws SQLException {
+
         Statement statement = DbConnection.getConnection().createStatement();
         String sql = "SELECT * FROM user WHERE id like '" + userId + "'";
 
@@ -142,7 +145,9 @@ public class UserRepository {
                     resultSet.getString("text"),
                     resultSet.getString("idUser"),
                     resultSet.getString("date"),
-                    resultSet.getString("idGroup")
+                    resultSet.getString("idGroup"),
+                    resultSet.getString("react")
+
 
             );
             messages.add(message);
