@@ -15,14 +15,14 @@ public class MessageRepository {
 
 
     public static void save(Message message) throws SQLException {
-        String sql = "INSERT INTO user(text, idUser, date, idGroup) VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO message(text, idUser, date, idGroup) VALUES(?, ?, ?, ?)";
         PreparedStatement preparedStatement = DbConnection.getConnection().prepareStatement(sql);
         preparedStatement.setString(1, message.getText());
         preparedStatement.setString(2, message.getIdUser());
 
 
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
 
         preparedStatement.setString(3, formatter.format(date));
         preparedStatement.setString(4, message.getIdGroup());
@@ -43,7 +43,8 @@ public class MessageRepository {
                     resultSet.getString("text"),
                     resultSet.getString("idUser"),
                     resultSet.getString("date"),
-                    resultSet.getString("idGroup")
+                    resultSet.getString("idGroup"),
+                    resultSet.getString("react")
 
             );
 
@@ -52,5 +53,24 @@ public class MessageRepository {
             return null;
 
     }
+
+    public static void delete (String messageId) throws SQLException{
+        String sql = "DELETE FROM `chatapp01`.`message` WHERE (`id` = '"+messageId+"') " +
+                "and (`idUser` = '"+findByMessageId(messageId).getIdUser()+"') and (`idGroup` = '"+
+                findByMessageId(messageId).getIdGroup()+"');";
+        PreparedStatement preparedStatement = DbConnection.getConnection().prepareStatement(sql);
+        preparedStatement.execute();
+    }
+
+    public static void updateMessage(Message message, String reacts) throws SQLException{
+        System.out.println("IN UPDATE" + message.getReacts());
+        String sql = "UPDATE `chatapp01`.`message` SET `react` = '"+reacts+"' WHERE (`id` = '"+
+                message.getId()+"') and (`idUser` = '"+ message.getIdUser()+"') and (`idGroup` = '"+
+                message.getIdGroup()+"');";
+        PreparedStatement preparedStatement = DbConnection.getConnection().prepareStatement(sql);
+        preparedStatement.execute();
+    }
+
+
 
 }

@@ -127,10 +127,14 @@
 </head>
 <body>
 
-<h2>Modal Login Form</h2>
+<h2 align="center">Welcome</h2>
+<div align="center">
+
 
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
-
+<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Register</button>
+</div>
+</div>
 <div id="id01" class="modal">
 
     <form class="modal-content animate" action="/login" method="post">
@@ -147,27 +151,62 @@
             <input type="password" placeholder="Enter Password" name="password" required>
 
             <button type="submit">Login</button>
-            <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label>
+
         </div>
 
         <div class="container" style="background-color:#f1f1f1">
             <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-            <span class="psw">Forgot <a href="#">password?</a></span>
+
         </div>
     </form>
 </div>
 
+
+
+<div id="id02" class="modal">
+
+    <form class="modal-content animate" action="/register" method="post">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="container">
+            <%--@declare id="uname"--%><%--@declare id="psw"--%><label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="name" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+
+            <button type="submit">Register</button>
+
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
 <script>
     // Get the modal
     var modal = document.getElementById('id01');
-
+    var modal2 = document.getElementById('id02');
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-        if (event.target == modal) {
+        if (event.target === modal) {
             modal.style.display = "none";
         }
+        if (event.target === modal2) {
+            modal2.style.display = "none";
+        }
+
     }
 </script>
 
