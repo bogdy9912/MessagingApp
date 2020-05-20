@@ -96,7 +96,7 @@
 
 <p align="center">
     <%
-        /* if (request.getAttribute("loginError") != null)
+            /* if (request.getAttribute("loginError") != null)
              out.print(request.getAttribute("loginError"));*/
         /*  else */if (request.getAttribute("name") != null) {
         out.print("Salut " + request.getAttribute("name"));
@@ -190,7 +190,7 @@
                         out.print(message.toString());
                         String reactAndReplyMessage = "<form class='forms' method= 'post' action = '/home_page'>" +
                                 "<input type='submit' name='react' value='React'>" +
-
+                                "<input type='text' name='inputReply' placeholder='Insert reply...'>"+
                                 "<input type='submit' name='reply' value='Reply'>" +
                                 "<input type='hidden' name='messageReplyAndReact' value='"+
                                 message.getId() +"'>"+
@@ -226,6 +226,25 @@
     <input type="submit" value="Add people in current group">
 </form>
 
+<form method="post", action="/home_page">
+    <input type="text" name="newFriend" placeholder="Enter new friend name...">
+    <input type='hidden' name='groupId' value='<%=request.getAttribute("groupId")%>'>
+    <input type='hidden' name='userName' value='<%=request.getAttribute("name")%>'>
+    <input type="submit" value=" ADD Friend">
+
+</form>
+
+<form method="post", action="/home_page">
+    <input type="text" name="newBestFriend" placeholder="Enter new bestfriend name...">
+    <input type='hidden' name='groupId' value='<%=request.getAttribute("groupId")%>'>
+    <input type='hidden' name='userName' value='<%=request.getAttribute("name")%>'>
+    <input type="submit" name="addBestFriend" value=" ADD BestFriend">
+    <input type="submit" name="removeBestFriend" value=" Remove BestFriend">
+
+</form>
+
+<p><% out.print("Userul curent a trimis " + request.getAttribute("nrMessages")+" in total"); %></p>
+<p><% out.print("BestFriends are: " + request.getAttribute("ListOfBestFriends"));%></p>
 <script>
 
 
