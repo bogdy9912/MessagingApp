@@ -25,7 +25,6 @@ public class LoginServlet extends HttpServlet {
         userCredentials = URLDecoder.decode(userCredentials);
         String userName = "";
         String userPassword = "";
-        System.out.println(userCredentials);
 
         userName = userCredentials.split("&")[0];
         userPassword = userCredentials.split("&")[1];
@@ -37,11 +36,6 @@ public class LoginServlet extends HttpServlet {
         } else {
             userName = userName.split("=")[1];
             userPassword = userPassword.split("=")[1];
-
-
-
-        System.out.println("USER NAME :  " + userName);
-        System.out.println("USER PASS  :  " + userPassword);
 
 
         try {

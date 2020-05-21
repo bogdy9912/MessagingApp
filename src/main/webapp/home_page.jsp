@@ -1,6 +1,7 @@
 <%@ page import="models.Message" %>
 <%@ page import="java.util.List" %>
-<%@ page import="models.Group" %><%--
+<%@ page import="models.Group" %>
+<%@ page import="repositories.GroupRepository" %><%--
   Created by IntelliJ IDEA.
   User: HP
   Date: 5/15/2020
@@ -103,6 +104,7 @@
 
         out.print("<br>");
         out.print("<br>");
+        out.print("Grupul: " + GroupRepository.findById((String) request.getAttribute("groupId")).getName());
 
     }
     %>
@@ -117,23 +119,6 @@
                 if (request.getAttribute("groups") != null) {
                     List<Group> groupsList = (List<Group>) request.getAttribute("groups");
                     for (Group group : groupsList) {
-
-                       // out.print(group.toString());
-                        String button = "<button class=\"tablinks\" onclick=\"" +
-                                "openCity(event, '" +"Tokyo" +"')\""+" , " +
-                                "id=" + group.getId() + ">" + group.getName() + "</button>"+
-                        "<input type='hidden' name='groupId' value='"+
-                                group.getId() + "'><br>\n" +
-                        " <input type='hidden' name='userName' value='"+
-                                request.getAttribute("name")+"'><br>\n";
-
-                        String form = "<form method= 'post' action = '/home_page'>" +
-                                "<input type='hidden' name='groupId' value='"+
-                                group.getId() + "'><br>\n" +
-                                " <input type='hidden' name='userName' value='"+
-                                request.getAttribute("name")+"'><br>\n"+
-                                "<input type=submit value = "+ group.getName() + ">" +
-                                "</form>";
 
                         String buttonForm = "<form method= 'post' action = '/home_page'>" +
                                 "<input type='hidden' name='groupId' value='"+

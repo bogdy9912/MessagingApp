@@ -77,6 +77,18 @@ public class GroupRepository {
         return users;
     }
 
+    public static boolean findIfUserIsInGroup(String groupId, String userId) throws SQLException{
+        Statement statement = DbConnection.getConnection().createStatement();
+        String sql = "SELECT * FROM user_group WHERE idGroup like '" + groupId + "' and idUser like '" + userId +"'";
+
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        if (resultSet.next()){
+            return true;
+        }
+        return false;
+    }
+
     public static List<Message> groupMessages(String groupId) throws SQLException{
         Statement statement = DbConnection.getConnection().createStatement();
         List<User> users = findUsersGroup(groupId);

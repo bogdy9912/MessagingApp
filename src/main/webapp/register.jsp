@@ -13,12 +13,12 @@
 <body>
 <h3 align="center">Register here</h3>
 
-<form align="center" method="post" action="/register">
-    <label for="name">Name: </label> <br>
-    <input type="text" id="name" name="name"><br>
-    <label for="password">Password: </label> <br>
-    <input type="password" id="password" name="password"><br>
-    <input type="submit" value="Login">
+    <form align="center" method="post" action="/register">
+        <label for="name">Name: </label> <br>
+        <input type="text" id="name" name="name"><br>
+        <label for="password">Password: </label> <br>
+        <input type="password" id="password" name="password"><br>
+        <input type="submit" value="Login">
 
 </form>
 
