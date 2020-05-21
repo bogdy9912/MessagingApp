@@ -34,7 +34,7 @@ public class HomePageServlet extends HttpServlet {
         String textMessage = null;
 
         textMessage = request.getParameter("textMessage");
-        System.out.println(textMessage);
+
         if (textMessage != null) {
             //   textMessage = URLDecoder.decode(textMessage);
 
@@ -73,14 +73,11 @@ public class HomePageServlet extends HttpServlet {
 
     private void reactMessage(HttpServletRequest request, HttpServletResponse response, String name) throws IOException, ServletException, SQLException {
         String actionMessage = request.getParameter("messageReplyAndReact");
-        System.out.println("Id mesaj este " + actionMessage);
-        System.out.println("Id utilixator " + UserRepository.findByUserName(name));
+
         if (actionMessage != null) {
 
             String handler = request.getParameter("react");
-            System.out.println("HANDLER " + handler);
             String textReply = request.getParameter("inputReply");
-            System.out.println("TEXT INPUT " + textReply);
             if (handler != null)
             if (handler.equals("React") && textReply.equals("")) {
                 try {
@@ -101,7 +98,6 @@ public class HomePageServlet extends HttpServlet {
         String actionMessage = null;
         actionMessage = request.getParameter("messageReplyAndReact");
         if (actionMessage != null) {
-
             String handler = null;
             handler = request.getParameter("reply");
             if (handler !=null)
@@ -109,7 +105,9 @@ public class HomePageServlet extends HttpServlet {
                 String textReply = request.getParameter("inputReply");
                 if(textReply != null){
                     try {
-                        MessageRepository.save(new Message(MessageRepository.findByMessageId(actionMessage).getText() + textReply,
+                        MessageRepository.save(new Message("Original message: "+MessageRepository.findByMessageId(actionMessage).getText() +"\n Reply: "+ textReply,
+                                user.getId(),group.getId(),null));
+                        System.out.println(new Message("Original message: "+MessageRepository.findByMessageId(actionMessage).getText() +"\n Reply: "+ textReply,
                                 user.getId(),group.getId(),null));
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
@@ -144,7 +142,14 @@ public class HomePageServlet extends HttpServlet {
                 }
                 else
                 try {
-                    GroupRepository.addMember(UserRepository.findByUserName(newUser), GroupRepository.findById(groupId));
+                    if (GroupRepository.findIfUserIsInGroup(groupId,UserRepository.findByUserName(newUser).getId()) != true)
+                    {
+                        GroupRepository.addMember(UserRepository.findByUserName(newUser), GroupRepository.findById(groupId));
+
+                    }
+                    else{
+                        System.out.println("Persona: " + newUser +" este deja in grup");
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -181,7 +186,7 @@ public class HomePageServlet extends HttpServlet {
 
     public void addBestFriend(User user,HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
         String newBestFriend = request.getParameter("newBestFriend");
-        System.out.println("BESTFRIEND " + newBestFriend);
+
         if(newBestFriend != null){
             try {
                 if ( request.getParameter("addBestFriend") != null && request.getParameter("addBestFriend").equals(" ADD BestFriend")) {
@@ -261,14 +266,13 @@ public void doGet(HttpServletRequest request, HttpServletResponse response) thro
         throwables.printStackTrace();
     }
 
-    System.out.println(request.getParameter("bff"));
     request.getRequestDispatcher("home_page.jsp").forward(request, response);
 
 }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
          String name = request.getParameter("userName");
          String groupId = request.getParameter("groupId");
-         
+
         String userId = null;
 
         if (name != null){

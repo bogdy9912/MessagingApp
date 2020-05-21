@@ -87,12 +87,7 @@ public class Message {
         for (String t : tokens)
             usersWhoReact.add(UserRepository.findByUserName(t));
     }
-    public void addReact(User user){
-        usersWhoReact.add(user);
-    }
-    public void deleteReact(User user){
-        usersWhoReact.remove(user);
-    }
+
 
     public boolean containsName(final List<User> list, final String userId){
         return list.stream().filter(o -> o.getId().equals(userId)).findFirst().isPresent();

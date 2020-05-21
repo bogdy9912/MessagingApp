@@ -62,15 +62,18 @@ public class User {
     }*/
 
     public void addFriend(User user) throws SQLException {
-        String sql = "INSERT INTO friend(idUser, idFriend) VALUES(?, ?)";
+        String sql = "INSERT INTO friend(idUser, idFriend, isBestFriend) VALUES(?, ?, ?)";
         PreparedStatement preparedStatement = DbConnection.getConnection().prepareStatement(sql);
         preparedStatement.setString(1, id);
         preparedStatement.setString(2, user.getId());
+        preparedStatement.setString(3, "false");
+
 
         preparedStatement.execute();
 
         preparedStatement.setString(2, id);
         preparedStatement.setString(1, user.getId());
+        preparedStatement.setString(3, "false");
 
         preparedStatement.execute();
 

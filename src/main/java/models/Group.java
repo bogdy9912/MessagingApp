@@ -1,7 +1,7 @@
 package models;
 
 public class Group {
-    private  String id;
+    private      String id;
     private final String name;
 
     public Group(String id, String name) {
